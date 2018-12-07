@@ -1,2 +1,4 @@
+**/.idea
+**/*.iml
+target
 /maven.bat
-/target
