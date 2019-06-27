@@ -146,4 +146,19 @@
       </build>
     </profile>
   </profiles>
+
+  <distributionManagement>
+    <!-- Publish versioned releases here -->
+    <repository>
+        <id>nexus</id>
+        <url>https://nexus.i-run.fr/repository/releases/</url>
+    </repository>
+
+    <!-- Publish snapshots here -->
+    <snapshotRepository>
+        <id>nexus</id>
+        <url>https://nexus.i-run.fr/repository/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
 </project>
