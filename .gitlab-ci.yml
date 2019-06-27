@@ -31,24 +31,6 @@ maven:build:
     when: on_success
     expire_in: 1 hour
     untracked: true
-
-maven:checkstyle:
-  stage: test
-  dependencies:
-  - maven:build
-  cache:
-    policy: pull
-  script:
-  - mvn ${MAVEN_CLI_OPTS} install checkstyle:check -DskipTests
-
-maven:javadoc:
-  stage: test
-  dependencies:
-    - maven:build
-  cache:
-    policy: pull
-  script:
-    - mvn ${MAVEN_CLI_OPTS} javadoc:javadoc
     
 maven:test:
   stage: test
@@ -86,18 +68,6 @@ maven:release:
   only:
     - develop
 
-maven:sonar:
-  stage: deploy
-  dependencies:
-    - maven:build
-  allow_failure: true
-  cache:
-    policy: pull
-  script:
-    - mvn ${MAVEN_CLI_OPTS} test sonar:sonar -Psonar
-  only:
-    - develop
-
 maven:deploy:
   stage: deploy
   dependencies:
@@ -106,15 +76,6 @@ maven:deploy:
   only:
     - develop
     - master
-
-javadoc:deploy:
-  stage: notify
-  allow_failure: true
-  cache: {}
-  script: 
-    - curl --request POST --form "token=$CI_JOB_TOKEN" --form ref=develop "${CI_API_V4_URL}/projects/65/trigger/pipeline"
-  only:
-    - develop
 
 mattermost:failure:
   stage: notify
